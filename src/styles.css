@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;500&family=Roboto+Mono&display=swap');
+
 *{
     padding: 0;
     margin: 0;
@@ -5,10 +7,64 @@
 }
 
 body{
+    font-family: 'Roboto Mono', monospace;
     height: 100vh;
-    padding: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 35% 65%;
+    gap: 20px;
+}
+
+.bottom{
+    padding: 5px;
+}
+
+.left{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: #94a3b8;
+    border-radius: 10px;
+    box-shadow: 3px 3px #575757;
+}
+
+.right{
+    display: grid;
+    gap: 10px;
+    grid-template-rows: 1fr 1fr;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.city-name{
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 2.5em;
+    color: #94a3b8;
+}
+
+.temp{
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 2em;
+    color: #f8fafc;
 }
 
 form{
     margin-top: 50px;
+}
+
+form>*{
+    padding: 5px 6px;
+    font-size: 1em;
+    font-family: 'Roboto Mono', monospace;
 }
