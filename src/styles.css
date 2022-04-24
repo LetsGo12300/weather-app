@@ -77,10 +77,10 @@ form>*{
 .clouds{
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 2px;
 }
 
-svg, .description{
+.description{
     display: inline-block;
 }
 

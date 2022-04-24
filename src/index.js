@@ -1,4 +1,5 @@
 import "./styles.css";
+import getIcon from './modules/icon';
 
 // DOM controller
 const leftContainer = document.querySelector('.left');
@@ -11,9 +12,10 @@ const minTemperature = document.querySelector('#min-temp');
 const maxTemperature = document.querySelector('#max-temp');
 const windSpeed = document.querySelector('.wind-speed');
 const errorDiv = document.querySelector('.error-div');
+const image = document.querySelector('img');
 
 const displayController = (() => {
-    const updateInfo = (city, country, mainTemp, feelsLikeTemp, minTemp, maxTemp, hum, wSpeed, desc, unitMeasurement) => {
+    const updateInfo = (city, country, mainTemp, feelsLikeTemp, minTemp, maxTemp, hum, wSpeed, desc, descID, unitMeasurement) => {
         clearErrorDiv();
         let tempUnit, speedUnit;
         if (unitMeasurement === 'metric'){
@@ -28,6 +30,7 @@ const displayController = (() => {
         humidity.textContent = `Humidity: ${hum}%`;
         windSpeed.textContent = `Wind speed: ${wSpeed} ${speedUnit}`;
         description.textContent = desc;
+        image.src = getIcon(descID);
         feelsLike.textContent = `Feels like: ${feelsLikeTemp}${tempUnit}`;
         minTemperature.textContent = `Min. temp: ${minTemp}${tempUnit}`;
         maxTemperature.textContent = `Max. temp: ${maxTemp}${tempUnit}`;
@@ -63,7 +66,8 @@ function getWeather(city, unit){
         const humidity = data.main.humidity;
         const windSpeed = data.wind.speed;
         const description = data.weather[0].description;
-        displayController.updateInfo(city, country, mainTemp, feelsLikeTemp, minTemp, maxTemp, humidity, windSpeed, description, unit);
+        const descriptionID = data.weather[0].id;
+        displayController.updateInfo(city, country, mainTemp, feelsLikeTemp, minTemp, maxTemp, humidity, windSpeed, description, descriptionID, unit);
     })
     .catch(error => {
         displayController.showError(error);
@@ -86,4 +90,3 @@ leftContainer.addEventListener('click', () => {
     unit = unit === 'metric' ? 'imperial' : 'metric';
     getWeather(currentCity, unit);
 });
-
