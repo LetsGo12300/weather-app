@@ -1,6 +1,10 @@
 function getIcon(descriptionID){
     let code;
-    if (descriptionID >= 801){
+    if (descriptionID >= 803){
+        code = '04';
+    } else if (descriptionID === 802){
+        code = '03';
+    } else if (descriptionID === 801){
         code = '02';
     } else if (descriptionID === 800){
         code = '01';
