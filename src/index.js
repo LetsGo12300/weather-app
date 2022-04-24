@@ -25,9 +25,9 @@ const displayController = (() => {
     const showError = (error) => {
         errorDiv.textContent = error.message;
     };
-    const clearErrorDiv = () => {
+    function clearErrorDiv(){
         errorDiv.textContent = '';
-    };
+    }
     return {
         updateInfo,
         showError

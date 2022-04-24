@@ -17,7 +17,7 @@ body{
 
 .container{
     display: grid;
-    grid-template-columns: 35% 65%;
+    grid-template-columns: 150px 1fr;
     gap: 20px;
 }
 
@@ -33,6 +33,7 @@ body{
     background-color: #94a3b8;
     border-radius: 10px;
     box-shadow: 3px 3px #575757;
+    cursor: pointer;
 }
 
 .right{
