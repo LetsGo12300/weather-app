@@ -38,11 +38,8 @@ body{
 }
 
 .right{
-    display: grid;
-    gap: 10px;
-    grid-template-rows: 1fr 1fr;
-    justify-content: flex-start;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .city-name{
@@ -77,8 +74,25 @@ form>*{
     margin-top: 2px;
 }
 
+.clouds{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+svg, .description{
+    display: inline-block;
+}
+
+svg{
+    color:#64748b;
+}
+
 @media only screen and (max-width: 600px) {
     .bottom>*{
         font-size: 0.9em;
     }    
+    .container{
+        min-width: 400px;
+    }
 }
