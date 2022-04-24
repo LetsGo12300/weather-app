@@ -1,7 +1,7 @@
 import "./styles.css";
 
 // DOM controller
-const container = document.querySelector('.container');
+const leftContainer = document.querySelector('.left');
 const cityName = document.querySelector('.city-name');
 const mainTemperature = document.querySelector('.temp');
 const humidity = document.querySelector('.humidity');
@@ -12,15 +12,23 @@ const windSpeed = document.querySelector('.wind-speed');
 const errorDiv = document.querySelector('.error-div');
 
 const displayController = (() => {
-    const updateInfo = (city, country, mainTemp, minTemp, maxTemp, hum, wSpeed, desc) => {
+    const updateInfo = (city, country, mainTemp, minTemp, maxTemp, hum, wSpeed, desc, unitMeasurement) => {
         clearErrorDiv();
+        let tempUnit, speedUnit;
+        if (unitMeasurement === 'metric'){
+            tempUnit = '°C';
+            speedUnit = 'm/s'
+        } else {
+            tempUnit = '°F';
+            speedUnit = 'mph'
+        }
         cityName.textContent = `${city}, ${country}`;
-        mainTemperature.textContent = `${mainTemp}°C`;
+        mainTemperature.textContent = `${mainTemp}${tempUnit}`;
         humidity.textContent = `Humidity: ${hum}%`;
-        windSpeed.textContent = `Wind speed: ${wSpeed} m/s`;
+        windSpeed.textContent = `Wind speed: ${wSpeed} ${speedUnit}`;
         description.textContent = desc;
-        minTemperature.textContent = `Min. temp: ${minTemp}°C`;
-        maxTemperature.textContent = `Max. temp: ${maxTemp}°C`;
+        minTemperature.textContent = `Min. temp: ${minTemp}${tempUnit}`;
+        maxTemperature.textContent = `Max. temp: ${maxTemp}${tempUnit}`;
     };
     const showError = (error) => {
         errorDiv.textContent = error.message;
@@ -35,8 +43,8 @@ const displayController = (() => {
 })();
 
 // API 
-function getWeather(city){
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=00d952e95b26f8bd03c973b670e05f6c&units=metric`, {mode: 'cors'})
+function getWeather(city, unit){
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=00d952e95b26f8bd03c973b670e05f6c&units=${unit}`, {mode: 'cors'})
     .then(response => {
         if (response.ok) {
             return response.json();
@@ -52,20 +60,27 @@ function getWeather(city){
         const humidity = data.main.humidity;
         const windSpeed = data.wind.speed;
         const description = data.weather[0].description;
-        displayController.updateInfo(city, country, mainTemp, minTemp, maxTemp, humidity, windSpeed, description);
+        displayController.updateInfo(city, country, mainTemp, minTemp, maxTemp, humidity, windSpeed, description, unit);
     })
     .catch(error => {
         displayController.showError(error);
     })
 }
 
+let unit = 'metric';
+let currentCity = 'Manila';
 // Event listeners
-window.addEventListener('DOMContentLoaded', getWeather('Manila'));
+window.addEventListener('DOMContentLoaded', getWeather(currentCity, unit)); // default city = Manila, PH
 const form = document.querySelector('form');
 
 form.addEventListener('submit', (event) => {
-    let formInput = form.elements['city'].value;
+    currentCity = form.elements['city'].value;
     event.preventDefault();
-    getWeather(formInput);
+    getWeather(currentCity, unit);
+});
+
+leftContainer.addEventListener('click', () => {
+    unit = unit === 'metric' ? 'imperial' : 'metric';
+    getWeather(currentCity, unit);
 });
 
