@@ -96,3 +96,23 @@ svg{
         min-width: 400px;
     }
 }
+
+.footer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    position: absolute;
+    bottom: 0;
+    background-color: #dae0e7;
+}
+
+.footer>*{
+    color: white;
+}
+
+a{
+    color: #F19981;
+    text-decoration: none;
+}
