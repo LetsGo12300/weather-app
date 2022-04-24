@@ -76,3 +76,10 @@ form>*{
     color: red;
     margin-top: 2px;
 }
+
+@media only screen and (max-width: 600px) {
+    .bottom>*{
+        font-size: 0.9em;
+    }    
+}
+    

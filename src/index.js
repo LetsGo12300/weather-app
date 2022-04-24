@@ -6,13 +6,14 @@ const cityName = document.querySelector('.city-name');
 const mainTemperature = document.querySelector('.temp');
 const humidity = document.querySelector('.humidity');
 const description = document.querySelector('.description');
+const feelsLike = document.querySelector('.feels-like');
 const minTemperature = document.querySelector('#min-temp');
 const maxTemperature = document.querySelector('#max-temp');
 const windSpeed = document.querySelector('.wind-speed');
 const errorDiv = document.querySelector('.error-div');
 
 const displayController = (() => {
-    const updateInfo = (city, country, mainTemp, minTemp, maxTemp, hum, wSpeed, desc, unitMeasurement) => {
+    const updateInfo = (city, country, mainTemp, feelsLikeTemp, minTemp, maxTemp, hum, wSpeed, desc, unitMeasurement) => {
         clearErrorDiv();
         let tempUnit, speedUnit;
         if (unitMeasurement === 'metric'){
@@ -27,6 +28,7 @@ const displayController = (() => {
         humidity.textContent = `Humidity: ${hum}%`;
         windSpeed.textContent = `Wind speed: ${wSpeed} ${speedUnit}`;
         description.textContent = desc;
+        feelsLike.textContent = `Feels like: ${feelsLikeTemp}${tempUnit}`;
         minTemperature.textContent = `Min. temp: ${minTemp}${tempUnit}`;
         maxTemperature.textContent = `Max. temp: ${maxTemp}${tempUnit}`;
     };
@@ -55,12 +57,13 @@ function getWeather(city, unit){
         const city = data.name;
         const country = data.sys.country;
         const mainTemp = data.main.temp;
+        const feelsLikeTemp = data.main.feels_like;
         const minTemp = data.main.temp_min;
         const maxTemp = data.main.temp_max;
         const humidity = data.main.humidity;
         const windSpeed = data.wind.speed;
         const description = data.weather[0].description;
-        displayController.updateInfo(city, country, mainTemp, minTemp, maxTemp, humidity, windSpeed, description, unit);
+        displayController.updateInfo(city, country, mainTemp, feelsLikeTemp, minTemp, maxTemp, humidity, windSpeed, description, unit);
     })
     .catch(error => {
         displayController.showError(error);
